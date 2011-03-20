@@ -18,7 +18,7 @@ namespace MotsunabeZombieProject
 
         bool IsHashTag(string body)
         {
-            var regex = new Regex(@"\s#([a-zA-Z0-9_]+)");
+            var regex = new Regex(@"(?:^|\s)#([a-zA-Z0-9_]+)");
             var ms = regex.Matches(body).Cast<Match>();
             return ms.Any() && ms.All(m => m.Success && IsNotInt(m.Groups[1].Value));
         }
