@@ -25,5 +25,12 @@ namespace MotsunabeZombieProject.Tests
             var result = categorizer.Categorize("bleis\tほげほげ #hash");
             Assert.That(result, Is.EqualTo("HashTag\tほげほげ #hash"));
         }
+
+        [TestCase("bleis\tほげほげ #hash", "HashTag\tほげほげ #hash")]
+        public void ハッシュタグ付きのTweetがHashTagに判定される(string record, string expected)
+        {
+            var categorizer = new TweetCategorizer();
+            Assert.That(categorizer.Categorize(record), Is.EqualTo(expected));
+        }
     }
 }
