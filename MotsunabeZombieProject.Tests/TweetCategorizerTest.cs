@@ -10,33 +10,35 @@ namespace MotsunabeZombieProject.Tests
     [TestFixture]
     class TweetCategorizerTest
     {
+        string _(string body) { return "bleis\t" + body; }
+
         [Test]
         public void 普通のTweetがNormalに判定される()
         {
             var categorizer = new TweetCategorizer();
-            var result = categorizer.Categorize("bleis\tほげほげ");
+            var result = categorizer.Categorize(_("ほげほげ"));
             Assert.That(result, Is.EqualTo("Normal\tほげほげ"));
         }
 
-        [TestCase("bleis\tほげほげ #hash", "HashTag\tほげほげ #hash")]
-        [TestCase("bleis\tほげほげ #1234", "Normal\tほげほげ #1234")]
-        [TestCase("bleis\tほげほげa#hash", "Normal\tほげほげa#hash")]
-        [TestCase("bleis\tほげほげ　#hash", "HashTag\tほげほげ　#hash")]
-        [TestCase("bleis\t#hash", "HashTag\t#hash")]
-        [TestCase("bleis\tほげほげ#hash", "HashTag\tほげほげ#hash")]
-        public void ハッシュタグ付きのTweetがHashTagに判定される(string record, string expected)
+        [TestCase("ほげほげ #hash", "HashTag\tほげほげ #hash")]
+        [TestCase("ほげほげ #1234", "Normal\tほげほげ #1234")]
+        [TestCase("ほげほげa#hash", "Normal\tほげほげa#hash")]
+        [TestCase("ほげほげ　#hash", "HashTag\tほげほげ　#hash")]
+        [TestCase("#hash", "HashTag\t#hash")]
+        [TestCase("ほげほげ#hash", "HashTag\tほげほげ#hash")]
+        public void ハッシュタグ付きのTweetがHashTagに判定される(string body, string expected)
         {
             var categorizer = new TweetCategorizer();
-            Assert.That(categorizer.Categorize(record), Is.EqualTo(expected));
+            Assert.That(categorizer.Categorize(_(body)), Is.EqualTo(expected));
         }
 
-        [TestCase("bleis\t@t_wada ほげほげ", "Reply\t@t_wada ほげほげ")]
-        [TestCase("bleis\t@ ほげほげ", "Normal\t@ ほげほげ")]
-        [TestCase("bleis\t.@t_wada ほげほげ", "Normal\t.@t_wada ほげほげ")]
-        public void リプライ付きのTweetがReplyに判定される(string record, string expected)
+        [TestCase("@t_wada ほげほげ", "Reply\t@t_wada ほげほげ")]
+        [TestCase("@ ほげほげ", "Normal\t@ ほげほげ")]
+        [TestCase(".@t_wada ほげほげ", "Normal\t.@t_wada ほげほげ")]
+        public void リプライ付きのTweetがReplyに判定される(string body, string expected)
         {
             var categorizer = new TweetCategorizer();
-            Assert.That(categorizer.Categorize(record), Is.EqualTo(expected));
+            Assert.That(categorizer.Categorize(_(body)), Is.EqualTo(expected));
         }
     }
 }
