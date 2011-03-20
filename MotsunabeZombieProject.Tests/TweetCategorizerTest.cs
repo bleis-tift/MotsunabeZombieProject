@@ -29,5 +29,13 @@ namespace MotsunabeZombieProject.Tests
             var categorizer = new TweetCategorizer();
             Assert.That(categorizer.Categorize(record), Is.EqualTo(expected));
         }
+
+        [Test]
+        public void リプライ付きのTweetがReplyに判定される()
+        {
+            var categorizer = new TweetCategorizer();
+            var result = categorizer.Categorize("bleis\t@t_wada ほげほげ");
+            Assert.That(result, Is.EqualTo("Reply\t@t_wada ほげほげ"));
+        }
     }
 }

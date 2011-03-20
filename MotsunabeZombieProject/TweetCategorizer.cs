@@ -13,6 +13,8 @@ namespace MotsunabeZombieProject
             var body = record.Split(new[] { '\t' }, 2)[1];
             if (IsHashTag(body))
                 return "HashTag\t" + body;
+            if (body.StartsWith("@"))
+                return "Reply\t" + body;
             return "Normal\t" + body;
         }
 
