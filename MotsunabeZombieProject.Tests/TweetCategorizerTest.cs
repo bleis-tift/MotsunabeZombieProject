@@ -23,6 +23,7 @@ namespace MotsunabeZombieProject.Tests
         [TestCase("bleis\tほげほげa#hash", "Normal\tほげほげa#hash")]
         [TestCase("bleis\tほげほげ　#hash", "HashTag\tほげほげ　#hash")]
         [TestCase("bleis\t#hash", "HashTag\t#hash")]
+        [TestCase("bleis\tほげほげ#hash", "HashTag\tほげほげ#hash")]
         public void ハッシュタグ付きのTweetがHashTagに判定される(string record, string expected)
         {
             var categorizer = new TweetCategorizer();
