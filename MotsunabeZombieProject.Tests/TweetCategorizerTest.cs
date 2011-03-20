@@ -11,6 +11,7 @@ namespace MotsunabeZombieProject.Tests
     class TweetCategorizerTest
     {
         string _(string body) { return "bleis\t" + body; }
+        string _(string category, string body) { return category + "\t" + body; }
 
         [Test]
         public void 普通のTweetがNormalに判定される()
@@ -20,25 +21,25 @@ namespace MotsunabeZombieProject.Tests
             Assert.That(result, Is.EqualTo("Normal\tほげほげ"));
         }
 
-        [TestCase("ほげほげ #hash", "HashTag\tほげほげ #hash")]
-        [TestCase("ほげほげ #1234", "Normal\tほげほげ #1234")]
-        [TestCase("ほげほげa#hash", "Normal\tほげほげa#hash")]
-        [TestCase("ほげほげ　#hash", "HashTag\tほげほげ　#hash")]
-        [TestCase("#hash", "HashTag\t#hash")]
-        [TestCase("ほげほげ#hash", "HashTag\tほげほげ#hash")]
-        public void ハッシュタグ付きのTweetがHashTagに判定される(string body, string expected)
+        [TestCase("ほげほげ #hash", "HashTag")]
+        [TestCase("ほげほげ #1234", "Normal")]
+        [TestCase("ほげほげa#hash", "Normal")]
+        [TestCase("ほげほげ　#hash", "HashTag")]
+        [TestCase("#hash", "HashTag")]
+        [TestCase("ほげほげ#hash", "HashTag")]
+        public void ハッシュタグ付きのTweetがHashTagに判定される(string body, string expectedCategory)
         {
             var categorizer = new TweetCategorizer();
-            Assert.That(categorizer.Categorize(_(body)), Is.EqualTo(expected));
+            Assert.That(categorizer.Categorize(_(body)), Is.EqualTo(_(expectedCategory, body)));
         }
 
-        [TestCase("@t_wada ほげほげ", "Reply\t@t_wada ほげほげ")]
-        [TestCase("@ ほげほげ", "Normal\t@ ほげほげ")]
-        [TestCase(".@t_wada ほげほげ", "Normal\t.@t_wada ほげほげ")]
-        public void リプライ付きのTweetがReplyに判定される(string body, string expected)
+        [TestCase("@t_wada ほげほげ", "Reply")]
+        [TestCase("@ ほげほげ", "Normal")]
+        [TestCase(".@t_wada ほげほげ", "Normal")]
+        public void リプライ付きのTweetがReplyに判定される(string body, string expectedCategory)
         {
             var categorizer = new TweetCategorizer();
-            Assert.That(categorizer.Categorize(_(body)), Is.EqualTo(expected));
+            Assert.That(categorizer.Categorize(_(body)), Is.EqualTo(_(expectedCategory, body)));
         }
     }
 }
