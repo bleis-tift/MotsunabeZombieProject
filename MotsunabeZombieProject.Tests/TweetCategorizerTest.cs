@@ -32,6 +32,7 @@ namespace MotsunabeZombieProject.Tests
 
         [TestCase("bleis\t@t_wada ほげほげ", "Reply\t@t_wada ほげほげ")]
         [TestCase("bleis\t@ ほげほげ", "Normal\t@ ほげほげ")]
+        [TestCase("bleis\t.@t_wada ほげほげ", "Normal\t.@t_wada ほげほげ")]
         public void リプライ付きのTweetがReplyに判定される(string record, string expected)
         {
             var categorizer = new TweetCategorizer();
