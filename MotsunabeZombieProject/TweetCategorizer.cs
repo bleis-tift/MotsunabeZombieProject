@@ -11,11 +11,16 @@ namespace MotsunabeZombieProject
         public string Categorize(string record)
         {
             var body = record.Split(new[] { '\t' }, 2)[1];
+            return GetCategory(body) + "\t" + body;
+        }
+
+        string GetCategory(string body)
+        {
             if (IsHashTag(body))
-                return "HashTag\t" + body;
-            if (body.StartsWith("@"))
-                return "Reply\t" + body;
-            return "Normal\t" + body;
+                return "HashTag";
+            if (IsReply(body))
+                return "Reply";
+            return "Normal";
         }
 
         bool IsHashTag(string body)
@@ -24,6 +29,11 @@ namespace MotsunabeZombieProject
             var regex = new Regex(@"(?:^|\s|[^a-zA-Z0-9_])#([a-zA-Z0-9_]+)");
             var ms = regex.Matches(body).Cast<Match>();
             return ms.Any() && ms.All(m => m.Success && IsNotInt(m.Groups[1].Value));
+        }
+
+        bool IsReply(string body)
+        {
+            return body.StartsWith("@");
         }
 
         bool IsNotInt(string s)
