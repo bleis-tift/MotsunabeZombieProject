@@ -11,14 +11,22 @@ namespace MotsunabeZombieProject
         public string Categorize(string record)
         {
             var body = record.Split(new[] { '\t' }, 2)[1];
-            var regex = new Regex("#([a-zA-Z0-9_]+)");
-            foreach (Match matches in regex.Matches(body))
-            {
-                int _;
-                if (matches.Success && int.TryParse(matches.Groups[1].Value, out _) == false)
-                    return "HashTag\t" + body;
-            }
+            if (IsHashTag(body))
+                return "HashTag\t" + body;
             return "Normal\t" + body;
+        }
+
+        bool IsHashTag(string body)
+        {
+            var regex = new Regex("#([a-zA-Z0-9_]+)");
+            var ms = regex.Matches(body).Cast<Match>();
+            return ms.Any() && ms.All(m => m.Success && IsNotInt(m.Groups[1].Value));
+        }
+
+        bool IsNotInt(string s)
+        {
+            int _;
+            return int.TryParse(s, out _) == false;
         }
     }
 }
