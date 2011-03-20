@@ -26,14 +26,14 @@ namespace MotsunabeZombieProject
         bool IsHashTag(string body)
         {
             // TODO : #の前に入ったらダメな記号を後で調べる
-            var regex = new Regex(@"(?:^|\s|[^a-zA-Z0-9_])#([a-zA-Z0-9_]+)");
-            var ms = regex.Matches(body).Cast<Match>();
+            var ms = Regex.Matches(body, @"(?:^|\s|[^a-zA-Z0-9_])#([a-zA-Z0-9_]+)").Cast<Match>();
             return ms.Any() && ms.All(m => m.Success && IsNotInt(m.Groups[1].Value));
         }
 
         bool IsReply(string body)
         {
-            return body.StartsWith("@");
+            // TODO : 後ろに入ったらダメな記号とかあるかを後で調べる
+            return Regex.IsMatch(body, @"^@[a-zA-Z0-9]+");
         }
 
         bool IsNotInt(string s)

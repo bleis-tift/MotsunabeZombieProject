@@ -10,32 +10,36 @@ namespace MotsunabeZombieProject.Tests
     [TestFixture]
     class TweetCategorizerTest
     {
+        string _(string body) { return "bleis\t" + body; }
+        string _(string category, string body) { return category + "\t" + body; }
+
         [Test]
         public void 普通のTweetがNormalに判定される()
         {
             var categorizer = new TweetCategorizer();
-            var result = categorizer.Categorize("bleis\tほげほげ");
+            var result = categorizer.Categorize(_("ほげほげ"));
             Assert.That(result, Is.EqualTo("Normal\tほげほげ"));
         }
 
-        [TestCase("bleis\tほげほげ #hash", "HashTag\tほげほげ #hash")]
-        [TestCase("bleis\tほげほげ #1234", "Normal\tほげほげ #1234")]
-        [TestCase("bleis\tほげほげa#hash", "Normal\tほげほげa#hash")]
-        [TestCase("bleis\tほげほげ　#hash", "HashTag\tほげほげ　#hash")]
-        [TestCase("bleis\t#hash", "HashTag\t#hash")]
-        [TestCase("bleis\tほげほげ#hash", "HashTag\tほげほげ#hash")]
-        public void ハッシュタグ付きのTweetがHashTagに判定される(string record, string expected)
+        [TestCase("ほげほげ #hash", "HashTag")]
+        [TestCase("ほげほげ #1234", "Normal")]
+        [TestCase("ほげほげa#hash", "Normal")]
+        [TestCase("ほげほげ　#hash", "HashTag")]
+        [TestCase("#hash", "HashTag")]
+        [TestCase("ほげほげ#hash", "HashTag")]
+        public void ハッシュタグ付きのTweetがHashTagに判定される(string body, string expectedCategory)
         {
             var categorizer = new TweetCategorizer();
-            Assert.That(categorizer.Categorize(record), Is.EqualTo(expected));
+            Assert.That(categorizer.Categorize(_(body)), Is.EqualTo(_(expectedCategory, body)));
         }
 
-        [Test]
-        public void リプライ付きのTweetがReplyに判定される()
+        [TestCase("@t_wada ほげほげ", "Reply")]
+        [TestCase("@ ほげほげ", "Normal")]
+        [TestCase(".@t_wada ほげほげ", "Normal")]
+        public void リプライ付きのTweetがReplyに判定される(string body, string expectedCategory)
         {
             var categorizer = new TweetCategorizer();
-            var result = categorizer.Categorize("bleis\t@t_wada ほげほげ");
-            Assert.That(result, Is.EqualTo("Reply\t@t_wada ほげほげ"));
+            Assert.That(categorizer.Categorize(_(body)), Is.EqualTo(_(expectedCategory, body)));
         }
     }
 }
