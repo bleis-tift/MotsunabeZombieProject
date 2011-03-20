@@ -30,15 +30,8 @@ namespace MotsunabeZombieProject.Tests
             Assert.That(categorizer.Categorize(record), Is.EqualTo(expected));
         }
 
-        [Test]
-        public void リプライ付きのTweetがReplyに判定される()
-        {
-            var categorizer = new TweetCategorizer();
-            var result = categorizer.Categorize("bleis\t@t_wada ほげほげ");
-            Assert.That(result, Is.EqualTo("Reply\t@t_wada ほげほげ"));
-        }
-
         [TestCase("bleis\t@t_wada ほげほげ", "Reply\t@t_wada ほげほげ")]
+        [TestCase("bleis\t@ ほげほげ", "Normal\t@ ほげほげ")]
         public void リプライ付きのTweetがReplyに判定される(string record, string expected)
         {
             var categorizer = new TweetCategorizer();

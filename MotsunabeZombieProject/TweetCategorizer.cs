@@ -33,7 +33,8 @@ namespace MotsunabeZombieProject
 
         bool IsReply(string body)
         {
-            return body.StartsWith("@");
+            var regex = new Regex(@"^@[a-zA-Z0-9_]+");
+            return regex.IsMatch(body);
         }
 
         bool IsNotInt(string s)
