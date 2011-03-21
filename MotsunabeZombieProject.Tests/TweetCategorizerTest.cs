@@ -10,15 +10,18 @@ namespace MotsunabeZombieProject.Tests
     [TestFixture]
     class TweetCategorizerTest
     {
-        string _(string body) { return "bleis\t" + body; }
-        string _(string category, string body) { return category + "\t" + body; }
-
         [Test]
         public void 普通のTweetがNormalに判定される()
         {
             var categorizer = new TweetCategorizer();
-            var result = categorizer.Categorize(_("ほげほげ"));
+            var result = categorizer.Categorize("bleis\tほげほげ");
             Assert.That(result, Is.EqualTo("Normal\tほげほげ"));
+        }
+
+        void AssertCategory(string body, string expectedCategory)
+        {
+            var categorizer = new TweetCategorizer();
+            Assert.That(categorizer.Categorize("bleis\t" + body), Is.EqualTo(expectedCategory + "\t" + body));
         }
 
         [TestCase("ほげほげ #hash", "HashTag")]
@@ -29,17 +32,21 @@ namespace MotsunabeZombieProject.Tests
         [TestCase("ほげほげ#hash", "HashTag")]
         public void ハッシュタグ付きのTweetがHashTagに判定される(string body, string expectedCategory)
         {
-            var categorizer = new TweetCategorizer();
-            Assert.That(categorizer.Categorize(_(body)), Is.EqualTo(_(expectedCategory, body)));
+            AssertCategory(body, expectedCategory);
         }
 
         [TestCase("@t_wada ほげほげ", "Reply")]
         [TestCase("@ ほげほげ", "Normal")]
-        [TestCase(".@t_wada ほげほげ", "Normal")]
+        [TestCase(".@t_wada ほげほげ", "Mention")]
         public void リプライ付きのTweetがReplyに判定される(string body, string expectedCategory)
         {
-            var categorizer = new TweetCategorizer();
-            Assert.That(categorizer.Categorize(_(body)), Is.EqualTo(_(expectedCategory, body)));
+            AssertCategory(body, expectedCategory);
+        }
+
+        [TestCase(".@t_wada ほげほげ", "Mention")]
+        public void メンション付のTweetがMentionに判定される(string body, string expectedCategory)
+        {
+            AssertCategory(body, expectedCategory);
         }
     }
 }
