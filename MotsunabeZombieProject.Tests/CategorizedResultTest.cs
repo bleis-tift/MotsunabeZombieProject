@@ -24,6 +24,7 @@ namespace MotsunabeZombieProject.Tests
             Assert.That(cr.Categories, Is.EqualTo(new[] { "Normal" }));
         }
 
+        [TestCase("hogehoge", new[] { "Normal" }, "Normal\thogehoge")]
         [TestCase("ほげほげ", new[] { "Reply", "HashTag" }, "Reply,HashTag\tほげほげ")]
         public void 文字列に変換できる(string body, string[] categories, string expected)
         {
