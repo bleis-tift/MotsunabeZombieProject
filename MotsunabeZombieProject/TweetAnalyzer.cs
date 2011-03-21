@@ -9,7 +9,8 @@ namespace MotsunabeZombieProject
     {
         internal IEnumerable<CategorizedResult> Categorize(string url)
         {
-            return new[] { new CategorizedResult("", "Normal") };
+            var categorizer = new TweetCategorizer();
+            return TweetProvider.Tweets.Select(categorizer.Categorize);
         }
 
         internal TweetProvider TweetProvider { get; set; }
