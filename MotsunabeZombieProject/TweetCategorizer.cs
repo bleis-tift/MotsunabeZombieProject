@@ -10,7 +10,7 @@ namespace MotsunabeZombieProject
     {
         public CategorizedResult Categorize(string record)
         {
-            var body = record.Split(new[] { '\t' }, 2)[1];
+            var body = record.Split(new[] { '\t' }, 3)[2];
             var categories = GetCategory(body).Split(',');
             return new CategorizedResult(body, categories);
         }
