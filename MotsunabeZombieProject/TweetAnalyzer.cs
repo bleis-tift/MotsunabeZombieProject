@@ -7,6 +7,11 @@ namespace MotsunabeZombieProject
 {
     public class TweetAnalyzer
     {
+        public TweetAnalyzer()
+        {
+            TweetProvider = new TweetProvider(null);
+        }
+
         internal IEnumerable<CategorizedResult> Categorize(string url)
         {
             var categorizer = new TweetCategorizer();
