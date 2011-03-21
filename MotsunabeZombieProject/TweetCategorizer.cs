@@ -32,6 +32,7 @@ namespace MotsunabeZombieProject
 
         bool IsReply(string body)
         {
+            // TODO : 後ろに入ったらダメな記号とかあるかを後で調べる
             return Regex.IsMatch(body, @"^@[a-zA-Z0-9]+");
         }
 
