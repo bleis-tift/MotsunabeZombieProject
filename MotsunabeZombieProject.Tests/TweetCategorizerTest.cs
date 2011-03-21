@@ -21,7 +21,7 @@ namespace MotsunabeZombieProject.Tests
         void AssertCategory(string body, string expected)
         {
             var categorizer = new TweetCategorizer();
-            var result = categorizer.Categorize("bleis\t" + body);
+            var result = categorizer.Categorize("2011/03/21 13:00:55\tbleis\t" + body);
             Assert.That(result.Categories, Is.EqualTo(new[] { expected }));
         }
 
@@ -58,7 +58,7 @@ namespace MotsunabeZombieProject.Tests
         public void 複数の種類を含むTweetの判定結果に含まれるすべての種類が存在する(string body, string[] expectedCategories)
         {
             var categorizer = new TweetCategorizer();
-            Assert.That(categorizer.Categorize("bleis\t" + body).Categories, Is.EquivalentTo(expectedCategories));
+            Assert.That(categorizer.Categorize("2011/12/23 00:00:00\tbleis\t" + body).Categories, Is.EquivalentTo(expectedCategories));
         }
     }
 }
