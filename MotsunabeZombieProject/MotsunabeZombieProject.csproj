@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="CategorizedResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TweetAnalyzer.cs" />
     <Compile Include="TweetCategorizer.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
