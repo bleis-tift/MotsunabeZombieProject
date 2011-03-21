@@ -15,7 +15,7 @@ namespace MotsunabeZombieProject.Tests
         {
             var categorizer = new TweetCategorizer();
             var result = categorizer.Categorize("bleis\tほげほげ");
-            Assert.That(result, Is.EqualTo("Normal\tほげほげ"));
+            Assert.That(result.Categories, Is.EqualTo(new[] { "Normal" }));
         }
 
         void AssertCategory(string body, string expectedCategory)
