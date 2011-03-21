@@ -20,6 +20,8 @@ namespace MotsunabeZombieProject
                 return "HashTag";
             if (IsReply(body))
                 return "Reply";
+            if (IsMention(body))
+                return "Mention";
             return "Normal";
         }
 
@@ -34,6 +36,11 @@ namespace MotsunabeZombieProject
         {
             // TODO : 後ろに入ったらダメな記号とかあるかを後で調べる
             return Regex.IsMatch(body, @"^@[a-zA-Z0-9]+");
+        }
+
+        bool IsMention(string body)
+        {
+            return Regex.IsMatch(body, @"@[a-zA-Z0-9_]+");
         }
 
         bool IsNotInt(string s)

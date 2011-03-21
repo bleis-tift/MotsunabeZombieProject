@@ -35,8 +35,15 @@ namespace MotsunabeZombieProject.Tests
 
         [TestCase("@t_wada ほげほげ", "Reply")]
         [TestCase("@ ほげほげ", "Normal")]
-        [TestCase(".@t_wada ほげほげ", "Normal")]
+        [TestCase(".@t_wada ほげほげ", "Mention")]
         public void リプライ付きのTweetがReplyに判定される(string body, string expectedCategory)
+        {
+            var categorizer = new TweetCategorizer();
+            Assert.That(categorizer.Categorize(_(body)), Is.EqualTo(_(expectedCategory, body)));
+        }
+
+        [TestCase(".@t_wada ほげほげ", "Mention")]
+        public void メンション付のTweetがMentionに判定される(string body, string expectedCategory)
         {
             var categorizer = new TweetCategorizer();
             Assert.That(categorizer.Categorize(_(body)), Is.EqualTo(_(expectedCategory, body)));
