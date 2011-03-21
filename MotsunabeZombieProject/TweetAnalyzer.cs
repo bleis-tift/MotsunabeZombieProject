@@ -18,11 +18,18 @@ namespace MotsunabeZombieProject
     public class TweetProvider
     {
         private string p;
+        private string[] tweets;
 
         public TweetProvider(string p)
         {
             // TODO: Complete member initialization
             this.p = p;
+        }
+
+        public TweetProvider(string[] tweets)
+        {
+            // TODO: Complete member initialization
+            this.tweets = tweets;
         }
     }
 }

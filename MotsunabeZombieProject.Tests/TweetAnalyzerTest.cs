@@ -10,14 +10,19 @@ namespace MotsunabeZombieProject.Tests
     [TestFixture]
     class TweetAnalyzerTest
     {
-        [Test]
-        public void ネットワークからTweetを取得して解析できる()
+        [TestCaseSource("TweetsAndExpectedCategories")]
+        public void ネットワークからTweetを取得して解析できる(string[] tweets, string[][] expectedCategories)
         {
             var ta = new TweetAnalyzer()
             {
-                TweetProvider = new TweetProvider("2011/03/21/ 12:16:25\tbleis\tほげほげ")
+                TweetProvider = new TweetProvider(tweets)
             };
-            Assert.That(ta.Categorize("http://192.168.1.40:4567/public_timeline").Select(r => r.Categories), Is.EqualTo(new[] { new[] { "Normal" } }));
+            Assert.That(ta.Categorize("http://192.168.1.40:4567/public_timeline").Select(r => r.Categories), Is.EqualTo(expectedCategories));
         }
+
+        static object[][] TweetsAndExpectedCategories = new[] {
+            new object[] { new[] { "2011/03/21 12:16:25\tbleis\tほげほげ" }, new[] { new[] { "Normal" } } },
+            new object[] { new[] { "2011/03/21 12:16:25\tbleis\tほげほげ", "2011/03/21 12:22:30\tmzp\t@bleis ほげほげ" }, new[] { new[] { "Normal" }, new [] { "Reply" } } }
+        };
     }
 }
