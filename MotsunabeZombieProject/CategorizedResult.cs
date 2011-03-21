@@ -18,5 +18,10 @@ namespace MotsunabeZombieProject
         public string Body { get; private set; }
 
         public IEnumerable<string> Categories { get; private set; }
+
+        public override string ToString()
+        {
+            return string.Join(",", Categories) + "\t" + Body;
+        }
     }
 }

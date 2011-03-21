@@ -23,5 +23,12 @@ namespace MotsunabeZombieProject.Tests
             var cr = new CategorizedResult("ほげほげ", "Normal");
             Assert.That(cr.Categories, Is.EqualTo(new[] { "Normal" }));
         }
+
+        [TestCase("ほげほげ", new[] { "Reply", "HashTag" }, "Reply,HashTag\tほげほげ")]
+        public void 文字列に変換できる(string body, string[] categories, string expected)
+        {
+            var cr = new CategorizedResult(body, categories);
+            Assert.That(cr.ToString(), Is.EqualTo(expected));
+        }
     }
 }
