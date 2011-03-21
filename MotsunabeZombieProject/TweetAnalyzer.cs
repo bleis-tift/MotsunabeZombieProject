@@ -23,11 +23,16 @@ namespace MotsunabeZombieProject
             this.tweets = tweets;
         }
 
-        readonly string[] tweets;
+        readonly IEnumerable<string> tweets;
 
-        internal string[] GetTweets(string url)
+        internal IEnumerable<string> GetTweets(string url)
         {
-            return tweets;
+            return tweets ?? GetTweetsFromUrl(url);
+        }
+
+        private IEnumerable<string> GetTweetsFromUrl(string url)
+        {
+            throw new NotImplementedException();
         }
     }
 }
