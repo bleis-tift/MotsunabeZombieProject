@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="CategorizedResultTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TweetAnalyzerTest.cs" />
     <Compile Include="TweetCategorizerTest.cs" />
   </ItemGroup>
   <ItemGroup>
