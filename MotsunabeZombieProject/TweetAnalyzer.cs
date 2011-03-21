@@ -12,24 +12,16 @@ namespace MotsunabeZombieProject
             return new[] { new CategorizedResult("", "Normal") };
         }
 
-        public TweetProvider TweetProvider { get; set; }
+        internal TweetProvider TweetProvider { get; set; }
     }
 
-    public class TweetProvider
+    internal class TweetProvider
     {
-        private string p;
-        private string[] tweets;
-
-        public TweetProvider(string p)
+        internal TweetProvider(string[] tweets)
         {
-            // TODO: Complete member initialization
-            this.p = p;
+            Tweets = tweets;
         }
 
-        public TweetProvider(string[] tweets)
-        {
-            // TODO: Complete member initialization
-            this.tweets = tweets;
-        }
+        internal IEnumerable<string> Tweets { get; private set; }
     }
 }
