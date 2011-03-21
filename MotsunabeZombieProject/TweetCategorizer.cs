@@ -11,11 +11,11 @@ namespace MotsunabeZombieProject
         public CategorizedResult Categorize(string record)
         {
             var body = record.Split(new[] { '\t' }, 3)[2];
-            var categories = GetCategory(body).Split(',');
+            var categories = GetCategories(body);
             return new CategorizedResult(body, categories);
         }
 
-        string GetCategory(string body)
+        string[] GetCategories(string body)
         {
             var result = new HashSet<string>();
             if (ContainsHashTag(body))
@@ -24,7 +24,7 @@ namespace MotsunabeZombieProject
                 result.Add("Reply");
             if (ContainsMention(body))
                 result.Add("Mention");
-            return result.Any() ? string.Join(",", result) : "Normal";
+            return result.Any() ? result.ToArray() : new[] { "Normal" };
         }
 
         bool ContainsHashTag(string body)
