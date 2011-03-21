@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Net;
+using System.IO;
 
 namespace MotsunabeZombieProject
 {
@@ -37,7 +39,12 @@ namespace MotsunabeZombieProject
 
         private IEnumerable<string> GetTweetsFromUrl(string url)
         {
-            throw new NotImplementedException();
+            var req = (HttpWebRequest)HttpWebRequest.Create(url);
+            using (var res = req.GetResponse())
+            using (var reader = new StreamReader(res.GetResponseStream()))
+            {
+                 return reader.ReadToEnd().Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
+            }
         }
     }
 }
