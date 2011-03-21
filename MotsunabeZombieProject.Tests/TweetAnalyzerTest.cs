@@ -21,8 +21,18 @@ namespace MotsunabeZombieProject.Tests
         }
 
         static object[][] TweetsAndExpectedCategories = new[] {
-            new object[] { new[] { "2011/03/21 12:16:25\tbleis\tほげほげ" }, new[] { new[] { "Normal" } } },
-            new object[] { new[] { "2011/03/21 12:16:25\tbleis\tほげほげ", "2011/03/21 12:22:30\tmzp\t@bleis ほげほげ" }, new[] { new[] { "Normal" }, new [] { "Reply" } } }
+            TestCase(Tweets("2011/03/21 12:16:25\tbleis\tほげほげ"), Categories(new[] { "Normal" })),
+            TestCase(Tweets("2011/03/21 12:16:25\tbleis\tほげほげ", "2011/03/21 12:22:30\tmzp\t@bleis ほげほげ"), Categories(new[] { "Normal" }, new[] { "Reply" })),
+            TestCase(Tweets("2011/03/21 14:12:00\tbleis\t@mzp ほげほげ#hash", "2011/03/21 14:12:01\tmzp\tぴよぴよ"), Categories(new[] { "HashTag", "Reply"}, new[] { "Normal" }))
         };
+
+        static object[] TestCase(object tweets, object expectedCategories)
+        {
+            return new[] { tweets, expectedCategories };
+        }
+
+        static object Tweets(params string[] tweets) { return tweets; }
+
+        static object Categories(params string[][] categories) { return categories; }
     }
 }
