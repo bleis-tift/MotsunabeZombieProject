@@ -10,7 +10,7 @@ namespace MotsunabeZombieProject
         internal IEnumerable<CategorizedResult> Categorize(string url)
         {
             var categorizer = new TweetCategorizer();
-            return TweetProvider.Tweets.Select(categorizer.Categorize);
+            return TweetProvider.GetTweets(url).Select(categorizer.Categorize);
         }
 
         internal TweetProvider TweetProvider { get; set; }
@@ -24,9 +24,10 @@ namespace MotsunabeZombieProject
         }
 
         readonly string[] tweets;
-        internal IEnumerable<string> Tweets
+
+        internal string[] GetTweets(string url)
         {
-            get { return tweets; }
+            return tweets;
         }
     }
 }
