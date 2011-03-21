@@ -11,5 +11,18 @@ namespace MotsunabeZombieProject
         {
             return new[] { new CategorizedResult("", "Normal") };
         }
+
+        public TweetProvider TweetProvider { get; set; }
+    }
+
+    public class TweetProvider
+    {
+        private string p;
+
+        public TweetProvider(string p)
+        {
+            // TODO: Complete member initialization
+            this.p = p;
+        }
     }
 }
