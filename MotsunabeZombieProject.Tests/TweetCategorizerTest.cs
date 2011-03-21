@@ -18,13 +18,6 @@ namespace MotsunabeZombieProject.Tests
             Assert.That(result.Categories, Is.EqualTo(new[] { "Normal" }));
         }
 
-
-        void AssertCategory(string body, string expectedCategory)
-        {
-            var categorizer = new TweetCategorizer();
-            Assert.That(categorizer.Categorize("bleis\t" + body), Is.EqualTo(expectedCategory + "\t" + body));
-        }
-
         [TestCase("ほげほげ #hash", "HashTag")]
         [TestCase("ほげほげ #1234", "Normal")]
         [TestCase("ほげほげa#hash", "Normal")]
@@ -33,7 +26,9 @@ namespace MotsunabeZombieProject.Tests
         [TestCase("ほげほげ#hash", "HashTag")]
         public void ハッシュタグ付きのTweetがHashTagに判定される(string body, string expectedCategory)
         {
-            AssertCategory(body, expectedCategory);
+            var categorizer = new TweetCategorizer();
+            var result = categorizer.Categorize("bleis\t" + body);
+            Assert.That(result.Categories, Is.EqualTo(new[] { expectedCategory }));
         }
 #if false
 
