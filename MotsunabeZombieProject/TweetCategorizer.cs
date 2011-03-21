@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Diagnostics;
 
 namespace MotsunabeZombieProject
 {
@@ -10,6 +11,8 @@ namespace MotsunabeZombieProject
     {
         public CategorizedResult Categorize(string record)
         {
+            // yyyy/MM/dd HH:mm:ss\tScreenName\tBody
+            Debug.Assert(record != null && Regex.IsMatch(record, @"\d{4}/\d{2}/\d{2} \d{2}:\d{2}:\d{2}\t[^\t]+\t.+"));
             var body = record.Split(new[] { '\t' }, 3)[2];
             var categories = GetCategories(body);
             return new CategorizedResult(body, categories);
