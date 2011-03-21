@@ -7,7 +7,6 @@ using System.Diagnostics;
 
 namespace MotsunabeZombieProject
 {
-    using Matcher = Tuple<string, Func<string, bool>>;
     public class TweetCategorizer
     {
         public CategorizedResult Categorize(string record)
