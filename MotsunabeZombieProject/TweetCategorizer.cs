@@ -8,10 +8,11 @@ namespace MotsunabeZombieProject
 {
     public class TweetCategorizer
     {
-        public string Categorize(string record)
+        public CategorizedResult Categorize(string record)
         {
             var body = record.Split(new[] { '\t' }, 2)[1];
-            return GetCategory(body) + "\t" + body;
+            var categories = GetCategory(body).Split(',');
+            return new CategorizedResult(body, categories);
         }
 
         string GetCategory(string body)
