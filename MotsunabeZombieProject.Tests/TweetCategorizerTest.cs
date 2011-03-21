@@ -18,6 +18,8 @@ namespace MotsunabeZombieProject.Tests
             Assert.That(result.Categories, Is.EqualTo(new[] { "Normal" }));
         }
 
+#if false
+
         void AssertCategory(string body, string expectedCategory)
         {
             var categorizer = new TweetCategorizer();
@@ -65,5 +67,6 @@ namespace MotsunabeZombieProject.Tests
             }
             Assert.Fail(string.Format("expected starts with [{0}] but [{1}].", string.Join(" or ", expectedCategories), result));
         }
+#endif
     }
 }
