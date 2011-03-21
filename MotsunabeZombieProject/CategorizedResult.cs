@@ -8,7 +8,7 @@ namespace MotsunabeZombieProject
 {
     public class CategorizedResult
     {
-        public CategorizedResult(string body, params string[] categories)
+        internal CategorizedResult(string body, params string[] categories)
         {
             Debug.Assert(categories != null && categories.Length > 0);
             Body = body;
