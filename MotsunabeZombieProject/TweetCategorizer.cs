@@ -16,32 +16,33 @@ namespace MotsunabeZombieProject
 
         string GetCategory(string body)
         {
-            if (IsHashTag(body))
-                return "HashTag";
-            if (IsReply(body))
-                return "Reply";
-            if (IsMention(body))
-                return "Mention";
-            return "Normal";
+            var result = new HashSet<string>();
+            if (ContainsHashTag(body))
+                result.Add("HashTag");
+            if (ContainsReply(body))
+                result.Add("Reply");
+            if (ContainsMention(body))
+                result.Add("Mention");
+            return result.Any() ? string.Join(",", result) : "Normal";
         }
 
-        bool IsHashTag(string body)
+        bool ContainsHashTag(string body)
         {
             // TODO : #の前に入ったらダメな記号を後で調べる
             var ms = Regex.Matches(body, @"(?:^|\s|[^a-zA-Z0-9_])#([a-zA-Z0-9_]+)").Cast<Match>();
             return ms.Any() && ms.All(m => m.Success && IsNotInt(m.Groups[1].Value));
         }
 
-        bool IsReply(string body)
+        bool ContainsReply(string body)
         {
             // TODO : 後ろに入ったらダメな記号とかあるかを後で調べる
             return Regex.IsMatch(body, @"^@[a-zA-Z0-9]+");
         }
 
-        bool IsMention(string body)
+        bool ContainsMention(string body)
         {
             // TODO : ダメ記号を後で調べる
-            return Regex.IsMatch(body, @"@[a-zA-Z0-9_]+");
+            return Regex.IsMatch(body, @".@[a-zA-Z0-9_]+");
         }
 
         bool IsNotInt(string s)
