@@ -20,9 +20,13 @@ namespace MotsunabeZombieProject
     {
         internal TweetProvider(string[] tweets)
         {
-            Tweets = tweets;
+            this.tweets = tweets;
         }
 
-        internal IEnumerable<string> Tweets { get; private set; }
+        readonly string[] tweets;
+        internal IEnumerable<string> Tweets
+        {
+            get { return tweets; }
+        }
     }
 }
