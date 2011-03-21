@@ -40,6 +40,7 @@ namespace MotsunabeZombieProject
 
         bool IsMention(string body)
         {
+            // TODO : ダメ記号を後で調べる
             return Regex.IsMatch(body, @"@[a-zA-Z0-9_]+");
         }
 
