@@ -18,7 +18,6 @@ namespace MotsunabeZombieProject.Tests
             Assert.That(result.Categories, Is.EqualTo(new[] { "Normal" }));
         }
 
-#if false
 
         void AssertCategory(string body, string expectedCategory)
         {
@@ -36,6 +35,7 @@ namespace MotsunabeZombieProject.Tests
         {
             AssertCategory(body, expectedCategory);
         }
+#if false
 
         [TestCase("@t_wada ほげほげ", "Reply")]
         [TestCase("@ ほげほげ", "Normal")]
