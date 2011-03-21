@@ -9,7 +9,7 @@ namespace MotsunabeZombieProject
     {
         internal IEnumerable<CategorizedResult> Categorize(string url)
         {
-            throw new NotImplementedException();
+            return new[] { new CategorizedResult("", "Normal") };
         }
     }
 }

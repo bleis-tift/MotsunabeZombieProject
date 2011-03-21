@@ -14,7 +14,7 @@ namespace MotsunabeZombieProject.Tests
         public void ネットワークからTweetを取得して解析できる()
         {
             var ta = new TweetAnalyzer();
-            Assert.That(ta.Categorize("http://192.168.1.40:4567/public_timeline").Select(r => r.Categories), Is.EqualTo(new[] { "Normal" }));
+            Assert.That(ta.Categorize("http://192.168.1.40:4567/public_timeline").Select(r => r.Categories), Is.EqualTo(new[] { new[] { "Normal" } }));
         }
     }
 }
