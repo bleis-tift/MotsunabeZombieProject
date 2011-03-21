@@ -11,7 +11,7 @@ namespace MotsunabeZombieProject.Tests
     class CategorizedResultTest
     {
         [Test]
-        public void CategorizedResultは元のTweet本体を持っている()
+        public void 元のTweet本体を持っている()
         {
             var cr = new CategorizedResult("ほげほげ");
             Assert.That(cr.Body, Is.EqualTo("ほげほげ"));
