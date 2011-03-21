@@ -14,7 +14,7 @@ namespace MotsunabeZombieProject.Tests
         public void 普通のTweetがNormalに判定される()
         {
             var categorizer = new TweetCategorizer();
-            var result = categorizer.Categorize("bleis\tほげほげ");
+            var result = categorizer.Categorize("2011/03/21 11:19:05\tbleis\tほげほげ");
             Assert.That(result.Categories, Is.EqualTo(new[] { "Normal" }));
         }
 
