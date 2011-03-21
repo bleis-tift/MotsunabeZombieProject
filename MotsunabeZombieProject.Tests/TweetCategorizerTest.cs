@@ -50,24 +50,12 @@ namespace MotsunabeZombieProject.Tests
             AssertCategory(body, expectedCategory);
         }
 
-#if false
-
-        [TestCase("@t_wada ほげほげ#hash", new[] { "Reply,HashTag", "HashTag,Reply" })]
-        public void 複数の種類を含むTweetがカンマ区切りで連結される(string body, string[] expectedCategories)
+        [TestCase("@t_wada ほげほげ#hash", new[] { "Reply", "HashTag" })]
+        [TestCase("@t_wada ほげほげ#hash", new[] { "HashTag", "Reply" }, Description="順不同")]
+        public void 複数の種類を含むTweetの判定結果に含まれるすべての種類が存在する(string body, string[] expectedCategories)
         {
             var categorizer = new TweetCategorizer();
-            var result = categorizer.Categorize("bleis\t" + body);
-            // 順番はどうでもいい
-            foreach (var exCat in expectedCategories)
-            {
-                if (result.StartsWith(exCat + "\t"))
-                {
-                    Assert.Pass();
-                    return;
-                }
-            }
-            Assert.Fail(string.Format("expected starts with [{0}] but [{1}].", string.Join(" or ", expectedCategories), result));
+            Assert.That(categorizer.Categorize("bleis\t" + body).Categories, Is.EquivalentTo(expectedCategories));
         }
-#endif
     }
 }
