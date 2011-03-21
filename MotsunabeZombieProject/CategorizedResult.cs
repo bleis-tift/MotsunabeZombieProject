@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Diagnostics;
 
 namespace MotsunabeZombieProject
 {
@@ -9,6 +10,7 @@ namespace MotsunabeZombieProject
     {
         public CategorizedResult(string body, params string[] categories)
         {
+            Debug.Assert(categories != null && categories.Length > 0);
             Body = body;
             Categories = categories;
         }
