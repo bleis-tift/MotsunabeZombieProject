@@ -54,6 +54,7 @@ namespace MotsunabeZombieProject.Tests
         [TestCase("@t_wada ほげほげ#hash", new[] { "HashTag", "Reply" }, Description="順不同")]
         [TestCase("@t_wada @mzp ほげほげ", new[] { "Reply", "Mention" })]
         [TestCase("@t_wada @mzp ほげほげ#hash", new[] { "Reply", "Mention", "HashTag" })]
+        [TestCase(".@t_wada @mzp ほげほげ#hash", new[] { "Mention", "HashTag" })]
         public void 複数の種類を含むTweetの判定結果に含まれるすべての種類が存在する(string body, string[] expectedCategories)
         {
             var categorizer = new TweetCategorizer();
